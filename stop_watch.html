@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time</title>
+    <style>
+        #timeDiv span {
+            font-size: 65px;
+            font-weight: 500;
+        }
+
+        #dayDates {
+            padding-left: 15%;
+            padding-right: 15%;
+            color: white;
+        }
+
+        #timeDiv {
+            color: white;
+        }
+
+        #parentDiv {
+            background-color: black;
+            padding: 8%;
+            max-width: 30%;
+        }
+
+        #stopwatch {
+            margin: auto;
+            padding: 8%;
+            background-color: blue;
+            color: white;
+            font-size: 2rem;
+            max-width: 30%;
+        }
+
+        
+    </style>
+</head>
+
+<body>
+
+
+    <div id="stopwatch">
+
+        <div id="runningTime">
+            <span id="stopminutes">0</span><span>:</span>
+            <span id="stopsecond">0</span><span>:</span>
+            <span id="stopmiliseconds">0</span>
+        </div>
+
+
+        <div>
+            <button onclick="startTimer()" id="stopWatchStart">Start</button>
+            <button onclick="stopTimer()" id="stopWatchRestart">Stop</button>
+            <button onclick="retartTimer()" id="stopWatchStop">Restart</button>
+            <button onclick="resetTimer()" id="stopWatchreset">Reset</button>
+        </div>
+        <div>
+            <table id="laptimeTable">
+            </table>
+        </div>
+
+    </div>
+
+
+    <script>
+        let s = 0;
+        let m = 0;
+        let min = 0;
+        
+        stoptimer=()=>{
+            document.getElementById('stopWatchRestart').disabled = true;
+            document.getElementById('stopWatchStop').disabled = true;
+            document.getElementById('stopWatchreset').disabled = true;
+        }
+        stoptimer();
+        secnds = () => {
+            s = s + 1;
+            if (s > 59) {
+                min = min + 1;
+                s = 0;
+                document.getElementById('stopsecond').innerHTML = s;
+                document.getElementById('stopminutes').innerHTML = min;
+
+            }
+            else {
+                document.getElementById('stopsecond').innerHTML = s;
+                document.getElementById('stopminutes').innerHTML = min;
+
+            }
+        }
+        miliss = () => {
+
+            m = m + 1;
+            if (m > 100) {
+                m = 0;
+                document.getElementById('stopmiliseconds').innerHTML = m;
+
+            }
+            else {
+                document.getElementById('stopmiliseconds').innerHTML = m;
+
+            }
+        }
+
+        startTimer = () => {
+            s1 = setInterval(secnds, 1000);
+            s2 = setInterval(miliss, 10);
+
+            document.getElementById('stopWatchStart').disabled = true;
+            document.getElementById('stopWatchRestart').disabled = false;
+            document.getElementById('stopWatchStop').disabled = false;
+            document.getElementById('stopWatchreset').disabled = false;
+        }
+        
+        resetTimer = () => {
+            location.reload();
+        }
+        retartTimer = () => {
+            s = 0;
+            m = 0;
+            min = 0;
+            document.getElementById('stopmiliseconds').innerHTML = 0;
+            document.getElementById('stopsecond').innerHTML = 0;
+            document.getElementById('stopminutes').innerHTML = 0;
+            document.getElementById('stopWatchStart').disabled = true;
+            document.getElementById('stopWatchRestart').disabled = false;
+        }
+        stopTimer = () => {
+            clearInterval(s1);
+            clearInterval(s2);
+            document.getElementById('stopWatchStop').disabled = true;
+            document.getElementById('stopWatchStart').disabled = false;
+            document.getElementById('stopWatchRestart').disabled = true;
+
+        }
+    </script>
+</body>
+
+</html>
